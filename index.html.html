@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رحلة تنظيف المنزل | Home Cleaning Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+<style>
+  :root {
+    --mint: #E8F5E9;
+    --mint-mid: #C8E6C9;
+    --mint-dark: #4CAF50;
+    --lavender: #F3E5F5;
+    --lavender-mid: #E1BEE7;
+    --lavender-dark: #9C27B0;
+    --pink: #FCE4EC;
+    --pink-mid: #F8BBD0;
+    --pink-dark: #E91E63;
+    --beige: #FDFBF7;
+    --peach: #FFF3E0;
+    --peach-mid: #FFE0B2;
+    --blue-soft: #E3F2FD;
+    --yellow-soft: #FFFDE7;
+    --charcoal: #2D2D2D;
+    --charcoal-light: #555;
+    --font-ar: 'Cairo', sans-serif;
+    --font-en: 'Poppins', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--beige);
+    color: var(--charcoal);
+    font-family: var(--font-ar);
+    min-height: 100vh;
+    transition: font-family 0.3s;
+  }
+  body.lang-en { font-family: var(--font-en); direction: ltr; }
+  body.lang-en html { direction: ltr; }
+
+  .app-header {
+    background: linear-gradient(135deg, var(--mint) 0%, var(--lavender) 50%, var(--pink) 100%);
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--mint-mid);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .app-title {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.3;
+  }
+  .app-title .emoji { font-size: 1.4em; }
+  .header-controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+  .lang-toggle {
+    background: white;
+    border: 2px solid var(--lavender-mid);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--charcoal);
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .lang-toggle:hover { background: var(--lavender); transform: scale(1.03); }
+
+  .energy-toggle {
+    background: white;
+    border: 2px solid var(--pink-mid);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--charcoal);
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .energy-toggle.high { background: var(--peach); border-color: #FFCC80; }
+  .energy-toggle.low { background: var(--mint); border-color: var(--mint-mid); }
+  .energy-toggle:hover { transform: scale(1.03); }
+
+  /* ===== Streak Badge ===== */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    border: 2px solid #FFCC80;
+    border-radius: 50px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #E65100;
+    transition: all 0.3s;
+    animation: streak-glow 2s ease-in-out infinite;
+    white-space: nowrap;
+  }
+  @keyframes streak-glow {
+    0%, 100% { box-shadow: 0 0 0 rgba(255,152,0,0); }
+    50% { box-shadow: 0 0 12px rgba(255,152,0,0.25); }
+  }
+  .streak-badge.pop {
+    animation: streak-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes streak-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+  .streak-badge .streak-fire { font-size: 1.1rem; }
+
+  .progress-section { margin-top: 0.5rem; }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; font-weight: 600; color: var(--charcoal-light);
+    margin-bottom: 0.4rem;
+  }
+  .progress-bar-track {
+    background: rgba(255,255,255,0.6);
+    border-radius: 50px;
+    height: 14px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255,255,255,0.8);
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--mint-dark), #66BB6A, #9C27B0);
+    background-size: 200% 100%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: shimmer 2s infinite linear;
+    width: 0%;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem 0;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--charcoal-light);
+    transition: all 0.25s;
+    display: flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    font-family: inherit;
+  }
+  .tab-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .tab-btn.active { color: white; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+  .tab-btn[data-tab="bingo"].active { background: linear-gradient(135deg, #66BB6A, #4CAF50); border-color: #4CAF50; }
+  .tab-btn[data-tab="wheel"].active { background: linear-gradient(135deg, #CE93D8, #9C27B0); border-color: #9C27B0; }
+  .tab-btn[data-tab="rescue"].active { background: linear-gradient(135deg, #F48FB1, #E91E63); border-color: #E91E63; }
+
+  .tab-content { display: none; padding: 2rem 1rem; max-width: 900px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  .section-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+
+  .bingo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .bingo-cell {
+    background: var(--mint);
+    border: 2px solid var(--mint-mid);
+    border-radius: 14px;
+    padding: 0.5rem 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bingo-cell .cell-icon { font-size: 1.3rem; }
+  .bingo-cell .cell-text { font-size: 0.68rem; font-weight: 600; color: var(--charcoal); line-height: 1.3; }
+  .bingo-cell:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .bingo-cell:active { transform: scale(0.95); }
+  .bingo-cell.done {
+    background: linear-gradient(135deg, #A5D6A7, #81C784);
+    border-color: var(--mint-dark);
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(76,175,80,0.3);
+  }
+  .bingo-cell.done .cell-text { color: #1B5E20; }
+  .bingo-cell.done::after {
+    content: '\2713';
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    font-size: 0.9rem;
+    color: #2E7D32;
+    font-weight: 700;
+  }
+  .bingo-cell.bingo-line {
+    background: linear-gradient(135deg, #FFD54F, #FFC107);
+    border-color: #FF8F00;
+    animation: pulse-gold 0.6s ease-in-out;
+  }
+  @keyframes pulse-gold {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1.04); }
+  }
+  .bingo-cell.free-space {
+    background: linear-gradient(135deg, #B39DDB, #9575CD);
+    border-color: #7E57C2;
+    cursor: default;
+  }
+  .bingo-cell.free-space .cell-text { color: white; font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .bingo-grid { gap: 0.35rem; }
+    .bingo-cell { min-height: 64px; border-radius: 10px; padding: 0.3rem 0.2rem; }
+    .bingo-cell .cell-icon { font-size: 1rem; }
+    .bingo-cell .cell-text { font-size: 0.6rem; }
+  }
+
+  .particle-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: particle-fall 1.2s ease-out forwards;
+    font-size: 1rem;
+  }
+  @keyframes particle-fall {
+    0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+    100% { opacity: 0; transform: translateY(200px) rotate(360deg) scale(0.3); }
+  }
+
+  .wheel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .wheel-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .wheel-canvas {
+    border-radius: 50%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    display: block;
+    max-width: 340px;
+    width: 100%;
+    height: auto;
+  }
+  .wheel-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 50%;
+    border: 3px solid var(--charcoal);
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .pointer-arrow {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 28px solid var(--charcoal);
+    z-index: 10;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  .spin-btn {
+    background: linear-gradient(135deg, #CE93D8, #9C27B0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.7rem;
+    box-shadow: 0 4px 20px rgba(156,39,176,0.3);
+    font-family: inherit;
+  }
+  .spin-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(156,39,176,0.4); }
+  .spin-btn:active { transform: scale(0.97); }
+  .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* ===== Edit Rewards Button ===== */
+  .edit-rewards-btn {
+    background: white;
+    color: var(--charcoal);
+    border: 2px solid var(--lavender-mid);
+    border-radius: 50px;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+  }
+  .edit-rewards-btn:hover { background: var(--lavender); transform: scale(1.04); box-shadow: 0 4px 16px rgba(156,39,176,0.15); }
+  .edit-rewards-btn:active { transform: scale(0.97); }
+
+  .wheel-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ===== Reward Edit Modal ===== */
+  .reward-edit-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fade-in 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .reward-edit-box {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    max-width: 460px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .reward-edit-box::-webkit-scrollbar { width: 4px; }
+  .reward-edit-box::-webkit-scrollbar-thumb { background: var(--lavender-mid); border-radius: 4px; }
+
+  .reward-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  .reward-edit-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .reward-edit-close {
+    background: var(--lavender);
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    transition: all 0.2s;
+  }
+  .reward-edit-close:hover { background: var(--lavender-mid); transform: scale(1.1); }
+
+  .reward-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--beige);
+    border-radius: 14px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+  }
+  .reward-item:hover { background: #F5F0E8; }
+  .reward-item .ri-icon { font-size: 1.2rem; flex-shrink: 0; width: 28px; text-align: center; }
+  .reward-item .ri-text { flex: 1; font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+  .reward-item .ri-delete {
+    background: none;
+    border: none;
+    color: #E57373;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .reward-item .ri-delete:hover { background: #FFEBEE; transform: scale(1.15); }
+
+  .reward-add-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .reward-add-row input {
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--charcoal);
+    background: white;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .reward-add-row input:focus { border-color: var(--lavender-mid); }
+  .reward-add-row .emoji-input { width: 56px; text-align: center; font-size: 1.1rem; }
+  .reward-add-row .name-input { flex: 1; min-width: 120px; }
+  .reward-add-btn {
+    background: linear-gradient(135deg, #CE93D8, #9C27B0);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .reward-add-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(156,39,176,0.25); }
+  .reward-add-btn:active { transform: scale(0.97); }
+  .reward-add-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .rescue-task-area {
+    margin-top: 0.5rem;
+  }
+
+  .task-card {
+    background: linear-gradient(135deg, var(--pink), #FCE4EC);
+    border: 2px solid var(--pink-mid);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    display: none;
+    animation: card-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .task-card.visible { display: block; }
+  @keyframes card-pop {
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .task-card .task-emoji { font-size: 3rem; margin-bottom: 0.75rem; }
+  .task-card .task-name { font-size: 1.4rem; font-weight: 700; color: var(--charcoal); margin-bottom: 1rem; line-height: 1.4; }
+  .countdown-ring-container { display: flex; justify-content: center; margin-top: 1rem; }
+  .countdown-circle { position: relative; width: 80px; height: 80px; }
+  .countdown-circle svg { transform: rotate(-90deg); }
+  .countdown-bg { fill: none; stroke: var(--pink-mid); stroke-width: 5; }
+  .countdown-fill { fill: none; stroke: var(--pink-dark); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1s linear; stroke-dasharray: 220; stroke-dashoffset: 0; }
+  .countdown-number {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem; font-weight: 700; color: var(--pink-dark);
+  }
+  .go-message { font-size: 1rem; font-weight: 700; color: var(--pink-dark); margin-top: 0.5rem; display: none; }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fade-in 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  .modal-box {
+    background: white;
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  @keyframes modal-pop {
+    from { opacity: 0; transform: scale(0.7) translateY(40px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-icon { font-size: 4rem; margin-bottom: 1rem; display: block; }
+  .modal-title { font-size: 1.8rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .modal-subtitle { font-size: 1rem; color: var(--charcoal-light); margin-bottom: 0.5rem; line-height: 1.6; }
+  .modal-reward { font-size: 1.3rem; font-weight: 700; color: #9C27B0; margin: 0.75rem 0 1.5rem; padding: 0.75rem 1.5rem; background: var(--lavender); border-radius: 14px; }
+  .modal-close {
+    background: var(--charcoal);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .modal-close:hover { background: #444; transform: scale(1.03); }
+
+  .bingo-modal .modal-box { background: linear-gradient(135deg, #FFFDE7, #FFF9C4); }
+  .bingo-modal .modal-title { color: #F57F17; }
+  .wheel-modal .modal-box { background: linear-gradient(135deg, var(--lavender), #EDE7F6); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--mint);
+    border-radius: 16px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    border: 1.5px solid var(--mint-mid);
+  }
+  .stat-number { font-size: 1.8rem; font-weight: 700; color: var(--mint-dark); }
+  .stat-label { font-size: 0.75rem; color: var(--charcoal-light); font-weight: 600; margin-top: 0.2rem; }
+
+  .tip-box {
+    background: var(--yellow-soft);
+    border: 1.5px solid #FFF176;
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    line-height: 1.6;
+  }
+  .tip-box .tip-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  /* ===== Mystery Mission Cards ===== */
+  .mystery-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .mystery-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  @keyframes card-deal {
+    0% { opacity: 0; transform: translateY(30px) scale(0.85); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .mystery-card {
+    perspective: 1000px;
+    cursor: pointer;
+    aspect-ratio: 3 / 4;
+    -webkit-tap-highlight-color: transparent;
+    animation: card-deal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    transition: opacity 0.4s ease, transform 0.3s ease;
+  }
+  .mystery-card:nth-child(1) { animation-delay: 0.05s; }
+  .mystery-card:nth-child(2) { animation-delay: 0.1s; }
+  .mystery-card:nth-child(3) { animation-delay: 0.15s; }
+  .mystery-card:nth-child(4) { animation-delay: 0.2s; }
+  .mystery-card:nth-child(5) { animation-delay: 0.25s; }
+  .mystery-card:nth-child(6) { animation-delay: 0.3s; }
+  .mystery-card:nth-child(7) { animation-delay: 0.35s; }
+  .mystery-card:nth-child(8) { animation-delay: 0.4s; }
+
+  .mystery-card.disabled {
+    pointer-events: none;
+    opacity: 0.35;
+    transform: scale(0.95);
+    filter: grayscale(0.3);
+  }
+
+  .mystery-card.flipped { cursor: default; }
+
+  .mystery-card:not(.disabled):not(.flipped):hover {
+    transform: translateY(-5px);
+  }
+  .mystery-card:not(.disabled):not(.flipped):active {
+    transform: translateY(-2px) scale(0.97);
+  }
+
+  .mystery-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+  }
+
+  .mystery-card.flipped .mystery-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .mystery-card-front,
+  .mystery-card-back {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mystery-card-front {
+    border: 3px solid rgba(255,255,255,0.7);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+
+  .mystery-card:nth-child(1) .mystery-card-front { background: linear-gradient(145deg, #E8F5E9, #C8E6C9); }
+  .mystery-card:nth-child(2) .mystery-card-front { background: linear-gradient(145deg, #F3E5F5, #E1BEE7); }
+  .mystery-card:nth-child(3) .mystery-card-front { background: linear-gradient(145deg, #FCE4EC, #F8BBD0); }
+  .mystery-card:nth-child(4) .mystery-card-front { background: linear-gradient(145deg, #FFF3E0, #FFE0B2); }
+  .mystery-card:nth-child(5) .mystery-card-front { background: linear-gradient(145deg, #E3F2FD, #BBDEFB); }
+  .mystery-card:nth-child(6) .mystery-card-front { background: linear-gradient(145deg, #FFFDE7, #FFF9C4); }
+  .mystery-card:nth-child(7) .mystery-card-front { background: linear-gradient(145deg, #E8F5E9, #F3E5F5); }
+  .mystery-card:nth-child(8) .mystery-card-front { background: linear-gradient(145deg, #FCE4EC, #FFF3E0); }
+
+  .mystery-card-front::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,0.3) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.3) 75%),
+      linear-gradient(45deg, rgba(255,255,255,0.3) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.3) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+    pointer-events: none;
+  }
+
+  .mystery-card-front::after {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 2.5px dashed rgba(0,0,0,0.08);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .card-question-mark {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: rgba(0,0,0,0.1);
+    z-index: 1;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .card-back-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.13);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 1;
+    margin-top: 0.3rem;
+    user-select: none;
+  }
+
+  .mystery-card-back {
+    transform: rotateY(180deg);
+    background: white;
+    border: 2.5px solid var(--pink-mid);
+    box-shadow: 0 6px 24px rgba(233,30,99,0.15);
+    padding: 1rem 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .mission-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .mission-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .mission-anchor {
+    font-size: 0.72rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--charcoal-light);
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 0.3rem;
+    padding: 0 0.25rem;
+    opacity: 0.85;
+  }
+
+  /* Focus Mode Buttons */
+  .focus-btn-row {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .focus-mode-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, #CE93D8, #9C27B0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(156,39,176,0.25);
+  }
+  .focus-mode-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(156,39,176,0.35); }
+  .focus-mode-btn:active { transform: scale(0.97); }
+
+  .finish-early-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: white;
+    color: var(--charcoal);
+    border: 2px solid var(--lavender-mid);
+    border-radius: 50px;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .finish-early-btn:hover { background: var(--lavender); transform: scale(1.04); }
+  .finish-early-btn:active { transform: scale(0.97); }
+
+  .focus-timer-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #9C27B0;
+    margin-bottom: 0.5rem;
+    display: none;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--beige); }
+  ::-webkit-scrollbar-thumb { background: var(--lavender-mid); border-radius: 6px; }
+</style>
+</head>
+<body class="lang-ar">
+
+<div class="particle-container" id="particleContainer"></div>
+
+<header class="app-header">
+  <div class="header-top">
+    <div class="app-title">
+      <span class="emoji">&#127968;</span>
+      <span data-ar="رحلة تنظيف المنزل" data-en="Home Cleaning Journey">رحلة تنظيف المنزل</span>
+    </div>
+    <div class="header-controls">
+      <div class="streak-badge" id="streakBadge" style="display:none;">
+        <span class="streak-fire">&#128293;</span>
+        <span id="streakText"></span>
+      </div>
+      <button class="energy-toggle high" id="energyToggle" onclick="toggleEnergy()">
+        <i class="fa-solid fa-bolt"></i>
+        <span data-ar="طاقة عالية" data-en="High Energy">طاقة عالية</span>
+      </button>
+      <button class="lang-toggle" onclick="toggleLang()">
+        <i class="fa-solid fa-language"></i>
+        <span id="langLabel">EN</span>
+      </button>
+    </div>
+  </div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span data-ar="التقدم الكلي" data-en="Overall Progress">التقدم الكلي</span>
+      <span id="progressText">0 / 24</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="bingo" onclick="switchTab('bingo')">
+    <i class="fa-solid fa-grid-2"></i>
+    <span data-ar="بينغو التنظيف" data-en="Cleaning Bingo">بينغو التنظيف</span>
+  </button>
+  <button class="tab-btn" data-tab="wheel" onclick="switchTab('wheel')">
+    <i class="fa-solid fa-circle-notch"></i>
+    <span data-ar="عجلة المكافأة" data-en="Reward Wheel">عجلة المكافأة</span>
+  </button>
+  <button class="tab-btn" data-tab="rescue" onclick="switchTab('rescue')">
+    <i class="fa-solid fa-dice"></i>
+    <span data-ar="إنقاذ الدماغ" data-en="Brain Rescue">إنقاذ الدماغ</span>
+  </button>
+</nav>
+
+<main>
+
+<!-- TAB 1: BINGO -->
+<div class="tab-content active" id="tab-bingo">
+  <div style="max-width:900px;margin:0 auto;padding:0 0.5rem;">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number" id="statDone">0</div>
+        <div class="stat-label" data-ar="مهام منجزة" data-en="Tasks Done">مهام منجزة</div>
+      </div>
+      <div class="stat-card" style="background:var(--lavender);border-color:var(--lavender-mid);">
+        <div class="stat-number" id="statLines" style="color:#9C27B0;">0</div>
+        <div class="stat-label" data-ar="خطوط بينغو" data-en="Bingo Lines">خطوط بينغو</div>
+      </div>
+      <div class="stat-card" style="background:var(--pink);border-color:var(--pink-mid);">
+        <div class="stat-number" id="statPercent" style="color:#E91E63;">0%</div>
+        <div class="stat-label" data-ar="نسبة الإنجاز" data-en="Completion">نسبة الإنجاز</div>
+      </div>
+    </div>
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fa-solid fa-grid-2" style="color:#4CAF50;"></i>
+        <span data-ar="شبكة بينغو التنظيف 5x5" data-en="5x5 Cleaning Bingo Grid">شبكة بينغو التنظيف 5x5</span>
+      </div>
+      <div class="tip-box" style="margin-bottom:0.75rem;">
+        <span class="tip-icon">&#128171;</span>
+        <span data-ar="تقدمك في أمان: يتم حفظ إنجازاتك تلقائياً على هذا الجهاز!" data-en="Progress Saved: Your progress is auto-saved on this device!">تقدمك في أمان: يتم حفظ إنجازاتك تلقائياً على هذا الجهاز!</span>
+      </div>
+      <div class="tip-box" style="margin-bottom:1.25rem;">
+        <span class="tip-icon">&#128161;</span>
+        <span data-ar="اضغط على أي مربع لإنجاز المهمة! أكمل صفاً كاملاً لتحصل على بينغو" data-en="Tap any square to complete a task! Finish a full row, column, or diagonal for BINGO">اضغط على أي مربع لإنجاز المهمة! أكمل صفاً كاملاً لتحصل على بينغو</span>
+      </div>
+      <div class="bingo-grid" id="bingoGrid"></div>
+    </div>
+    <div style="text-align:center;margin-top:0.5rem;">
+      <button onclick="resetBingo()" style="background:var(--lavender);border:2px solid var(--lavender-mid);border-radius:50px;padding:0.6rem 1.5rem;font-size:0.85rem;font-weight:600;cursor:pointer;color:var(--charcoal);font-family:inherit;transition:all 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        <i class="fa-solid fa-rotate-right"></i> <span data-ar="توليد شبكة مهام جديدة" data-en="Generate New Tasks Grid">توليد شبكة مهام جديدة</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: WHEEL -->
+<div class="tab-content" id="tab-wheel">
+  <div class="section-card">
+    <div class="section-title">
+      <i class="fa-solid fa-star" style="color:#9C27B0;"></i>
+      <span data-ar="عجلة مكافآت الدوبامين" data-en="Dopamine Reward Wheel">عجلة مكافآت الدوبامين</span>
+    </div>
+    <div class="tip-box" style="margin-bottom:1.5rem;">
+      <span class="tip-icon">&#127919;</span>
+      <span data-ar="أنهِ مهمة ثم لف العجلة لتحصل على مكافأة مكتسبة! المكافآت هي وقودك للاستمرار" data-en="Finish a task then spin the wheel for your earned reward! Rewards are the fuel to keep going">أنهِ مهمة ثم لف العجلة لتحصل على مكافأة مكتسبة! المكافآت هي وقودك للاستمرار</span>
+    </div>
+    <div class="wheel-container">
+      <div class="wheel-wrapper">
+        <div class="pointer-arrow"></div>
+        <canvas id="wheelCanvas" class="wheel-canvas" width="340" height="340"></canvas>
+        <div class="wheel-arrow">&#10022;</div>
+      </div>
+      <div class="wheel-btn-row">
+        <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+          <i class="fa-solid fa-circle-notch fa-spin" id="spinIcon"></i>
+          <span data-ar="لف العجلة!" data-en="Spin the Wheel!">لف العجلة!</span>
+        </button>
+        <button class="edit-rewards-btn" onclick="openRewardEditor()">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span data-ar="تعديل المكافآت" data-en="Edit Rewards">تعديل المكافآت</span>
+        </button>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--charcoal-light);margin-bottom:0.75rem;text-align:center;" data-ar="قائمة المكافآت" data-en="Reward List">قائمة المكافآت</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.5rem;" id="rewardLegend"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: RESCUE -->
+<div class="tab-content" id="tab-rescue">
+  <div class="section-card">
+    <div class="section-title">
+      <i class="fa-solid fa-brain" style="color:#E91E63;"></i>
+      <span data-ar="إنقاذ الدماغ من شلل القرار" data-en="Brain Rescue from Decision Paralysis">إنقاذ الدماغ من شلل القرار</span>
+    </div>
+    <div class="tip-box" style="margin-bottom:1.5rem;background:var(--pink);border-color:var(--pink-mid);">
+      <span class="tip-icon">&#129504;</span>
+      <span data-ar="اختر بطاقة واحدة! لا تفكر، فقط اضغط وابدأ" data-en="Pick ONE card! Don't think, just tap and go">اختر بطاقة واحدة! لا تفكر، فقط اضغط وابدأ</span>
+    </div>
+    <div class="mystery-cards-grid" id="mysteryCardsGrid"></div>
+    <div class="rescue-task-area">
+      <div class="task-card" id="taskCard">
+        <div class="task-emoji" id="taskEmoji">&#10024;</div>
+        <div class="task-name" id="taskName"></div>
+        <div style="font-size:0.85rem;color:var(--charcoal-light);margin-bottom:1rem;" data-ar="ابدأ الآن! المؤقت يعمل..." data-en="Start Now! Timer is running...">ابدأ الآن! المؤقت يعمل...</div>
+        <div class="countdown-ring-container">
+          <div class="countdown-circle">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle class="countdown-bg" cx="40" cy="40" r="35"></circle>
+              <circle class="countdown-fill" id="countdownRing" cx="40" cy="40" r="35"></circle>
+            </svg>
+            <div class="countdown-number" id="countdownNum">5</div>
+          </div>
+        </div>
+        <div class="go-message" id="goMessage" data-ar="انطلق الآن!" data-en="GO NOW!">&#128640; انطلق الآن!</div>
+        <div class="focus-timer-text" id="focusTimerText" data-ar="وضع التركيز نشط..." data-en="Focus Mode active...">&#9201;&#65039; وضع التركيز نشط...</div>
+        <div class="focus-btn-row" id="focusBtnRow">
+          <button id="doneRescueBtn" onclick="markRescueTaskDone()" style="display:none;background:var(--mint-dark);color:white;border:none;border-radius:50px;padding:0.7rem 1.8rem;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <i class="fa-solid fa-check"></i> <span data-ar="تم!" data-en="Done!">تم! &#10003;</span>
+          </button>
+          <button id="focusModeBtn" onclick="startFocusCountdown()" style="display:none;" class="focus-mode-btn">
+            <i class="fa-solid fa-clock"></i> <span data-ar="وضع التركيز (15 دقيقة)" data-en="Focus Mode (15 min)">وضع التركيز (15 دقيقة) &#9201;&#65039;</span>
+          </button>
+          <button id="finishEarlyBtn" onclick="finishFocusEarly()" style="display:none;" class="finish-early-btn">
+            <i class="fa-solid fa-forward"></i> <span data-ar="أنهِ مبكراً" data-en="Finish Early">أنهِ مبكراً</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-card" id="rescueHistoryCard" style="display:none;">
+    <div class="section-title" style="font-size:1rem;">
+      <i class="fa-solid fa-trophy" style="color:#FF8F00;"></i>
+      <span data-ar="المهام المنجزة اليوم" data-en="Tasks Done Today">المهام المنجزة اليوم</span>
+    </div>
+    <div id="rescueHistory" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+  </div>
+</div>
+
+</main>
+
+<!-- BINGO MODAL -->
+<div class="modal-overlay bingo-modal" id="bingoModal" style="display:none;" onclick="closeBingoModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <span class="modal-icon">&#127942;</span>
+    <div class="modal-title" data-ar="بينغو! انتصار!" data-en="BINGO! Victory!">بينغو! انتصار!</div>
+    <div class="modal-subtitle" data-ar="رائع! أكملت خطاً كاملاً! أنت بطل حقيقي" data-en="Amazing! You completed a full line! You're a true champion">رائع! أكملت خطاً كاملاً! أنت بطل حقيقي</div>
+    <div class="modal-reward" id="bingoRewardMsg"></div>
+    <button class="modal-close" onclick="closeBingoModal()" data-ar="شكراً! استمر" data-en="Thanks! Keep going">شكراً! استمر &#128170;</button>
+  </div>
+</div>
+
+<!-- WHEEL MODAL -->
+<div class="modal-overlay wheel-modal" id="wheelModal" style="display:none;" onclick="closeWheelModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <span class="modal-icon">&#127882;</span>
+    <div class="modal-title" data-ar="انتصار! مكافأتك هي..." data-en="Victory! Your reward is...">انتصار! مكافأتك هي...</div>
+    <div class="modal-reward" id="wheelRewardText"></div>
+    <div class="modal-subtitle" style="font-size:0.9rem;" data-ar="استحققتها تماماً! استمتع بكل لحظة" data-en="You absolutely earned it! Enjoy every moment">استحققتها تماماً! استمتع بكل لحظة</div>
+    <button class="modal-close" onclick="closeWheelModal()" style="margin-top:1.25rem;" data-ar="رائع! شكراً" data-en="Awesome! Thanks">رائع! شكراً &#127752;</button>
+  </div>
+</div>
+
+<!-- REWARD EDIT MODAL -->
+<div class="reward-edit-overlay" id="rewardEditModal" style="display:none;" onclick="closeRewardEditor()">
+  <div class="reward-edit-box" onclick="event.stopPropagation()">
+    <div class="reward-edit-header">
+      <h3>
+        <i class="fa-solid fa-pen-to-square" style="color:#9C27B0;"></i>
+        <span data-ar="تعديل المكافآت" data-en="Edit Rewards">تعديل المكافآت</span>
+      </h3>
+      <button class="reward-edit-close" onclick="closeRewardEditor()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="rewardEditList"></div>
+    <div class="reward-add-row">
+      <input type="text" class="emoji-input" id="newRewardIcon" maxlength="4" placeholder="&#127912;">
+      <input type="text" class="name-input" id="newRewardName" maxlength="40" placeholder="">
+      <button class="reward-add-btn" onclick="addReward()">
+        <i class="fa-solid fa-plus"></i>
+        <span data-ar="أضف" data-en="Add">أضف</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+var currentLang = 'ar';
+var energyMode = 'high';
+var completedCellsHigh = new Array(25).fill(false);
+var completedCellsLow = new Array(25).fill(false);
+var foundBingoLinesHigh = [];
+var foundBingoLinesLow = [];
+var completedCells = completedCellsHigh;
+var foundBingoLines = foundBingoLinesHigh;
+var rescueHistory = [];
+var currentRescueIndex = -1;
+var countdownInterval = null;
+var isSpinning = false;
+var currentWheelAngle = 0;
+
+/* ===== Mystery Mission Cards Data ===== */
+var rescueMissions = [
+  {icon:'&#128465;', ar:'اجمع القمامة في كيس', en:'Bag the trash', anchor_ar:'مساحتك ستصبح أخف وأنعم فوراً!', anchor_en:'Your space will instantly feel lighter and fresher!'},
+  {icon:'&#129528;', ar:'امسح سطحاً واحداً', en:'Wipe one surface', anchor_ar:'ذاك السطح اللامع سيجعلك تبتسم كلما مررت به!', anchor_en:'That gleaming surface will make you smile every time you walk by!'},
+  {icon:'&#128715;', ar:'رتّب وسائد الأريكة', en:'Fluff the sofa cushions', anchor_ar:'ستشعر بالدفء والراحة عندما تجلس هنا لاحقاً!', anchor_en:'You will feel so cozy sitting here later!'},
+  {icon:'&#9749;', ar:'أعد كوباً إلى المطبخ', en:'Take a cup to the kitchen', anchor_ar:'طاولة نظيفة تعني ذهن صافٍ — أنت المستقبل سيشكرك!', anchor_en:'A clear table is a clear mind — your future self thanks you!'},
+  {icon:'&#128095;', ar:'ضع حذاء في مكانه', en:'Put away one pair of shoes', anchor_ar:'النظام يصنع الهدوء — حتى حذاء واحد يحدث فرقاً!', anchor_en:'Order creates calm — even just one pair makes a difference!'},
+  {icon:'&#10024;', ar:'نظّف مرآة واحدة', en:'Clean one mirror', anchor_ar:'رؤية انعكاسك في مرآة نظيفة ترفع معنوياتك فوراً!', anchor_en:'Seeing your reflection in a clean mirror boosts your mood instantly!'},
+  {icon:'&#129529;', ar:'اكنس منطقة واحدة', en:'Sweep one single area', anchor_ar:'زاوية نظيفة واحدة تغير شعورك بالغرفة بأكملها!', anchor_en:'One clean corner changes how the whole room feels!'},
+  {icon:'&#128435;', ar:'افتح نافذة للتهوية', en:'Open a window for fresh air', anchor_ar:'الهواء النقي طاقة مجانية لدماغك — خذ نفساً عميقاً!', anchor_en:'Fresh air is free energy for your brain — breathe deep!'}
+];
+var shuffledMissionIndices = [];
+var currentRescueTask = null;
+var isCardFlipped = false;
+var focusModeActive = false;
+var wheelTickInterval = null;
+
+/* ===== Streak Variables ===== */
+var lastTaskDate = null;
+var currentStreak = 0;
+
+/* ===== Massive Task Pools (No FREE SPACE — inserted dynamically) ===== */
+var highEnergyTasks = [
+  {ar:'نظّف الحوض',en:'Clean the sink',icon:'&#128704;'},
+  {ar:'امسح الطاولة',en:'Wipe the table',icon:'&#129529;'},
+  {ar:'رتّب الأحذية',en:'Arrange shoes',icon:'&#128095;'},
+  {ar:'مسح الأرضية',en:'Sweep the floor',icon:'&#129530;'},
+  {ar:'اغسل الأطباق',en:'Wash dishes',icon:'&#127869;'},
+  {ar:'نظّف المرآة',en:'Clean the mirror',icon:'&#129518;'},
+  {ar:'رتّب الوسائد',en:'Arrange pillows',icon:'&#128715;'},
+  {ar:'فرّغ القمامة',en:'Empty the trash',icon:'&#128465;'},
+  {ar:'اطوِ الغسيل',en:'Fold laundry',icon:'&#128085;'},
+  {ar:'نظّف الموقد',en:'Clean the stove',icon:'&#127859;'},
+  {ar:'رتّب الخزانة',en:'Tidy the closet',icon:'&#128682;'},
+  {ar:'امسح النوافذ',en:'Wipe windows',icon:'&#128435;'},
+  {ar:'رتّب الأوراق',en:'Sort papers',icon:'&#128196;'},
+  {ar:'نظّف المغسلة',en:'Scrub the basin',icon:'&#129519;'},
+  {ar:'رتّب الأدراج',en:'Tidy drawers',icon:'&#128450;'},
+  {ar:'اكنس الشرفة',en:'Sweep balcony',icon:'&#127807;'},
+  {ar:'امسح الرفوف',en:'Dust the shelves',icon:'&#128218;'},
+  {ar:'نظّف الثلاجة',en:'Clean the fridge',icon:'&#129474;'},
+  {ar:'مسح الحمام',en:'Clean bathroom',icon:'&#128701;'},
+  {ar:'رتّب المطبخ',en:'Tidy kitchen',icon:'&#127860;'},
+  {ar:'غيّر الشراشف',en:'Change bed sheets',icon:'&#128719;'},
+  {ar:'نظّف الجدران',en:'Wipe the walls',icon:'&#128444;'},
+  {ar:'رتّب النباتات',en:'Tend to plants',icon:'&#129724;'},
+  {ar:'امسح الأبواب',en:'Wipe the doors',icon:'&#128682;'},
+  {ar:'امسح الأرضية',en:'Mop the floor',icon:'&#129532;'},
+  {ar:'نظّف الميكروويف',en:'Clean the microwave',icon:'&#128225;'},
+  {ar:'رتّب الرف',en:'Organize the bookshelf',icon:'&#128214;'},
+  {ar:'امسح شاشة التلفاز',en:'Wipe the TV screen',icon:'&#128250;'},
+  {ar:'نظّف ماكينة القهوة',en:'Clean the coffee maker',icon:'&#9749;'},
+  {ar:'رتّب رف الأحذية',en:'Tidy the shoe rack',icon:'&#128092;'},
+  {ar:'نظّف حوض الاستحمام',en:'Scrub the bathtub',icon:'&#128704;'},
+  {ar:'رتّب المخزن',en:'Organize the pantry',icon:'&#129472;'},
+  {ar:'امسح طاولة المطبخ',en:'Wipe kitchen counters',icon:'&#127856;'},
+  {ar:'نظّف الفرن',en:'Clean the oven',icon:'&#127829;'},
+  {ar:'امسح مروحة السقف',en:'Dust the ceiling fan',icon:'&#127744;'},
+  {ar:'رتّب أسفل الحوض',en:'Organize under the sink',icon:'&#129528;'},
+  {ar:'نظّف غسالة الملابس',en:'Clean the washing machine',icon:'&#128295;'},
+  {ar:'امسح الخزائن',en:'Wipe down cabinets',icon:'&#127978;'},
+  {ar:'رتّب الفريزر',en:'Organize the freezer',icon:'&#10052;'},
+  {ar:'نظّف المحمص',en:'Clean the toaster',icon:'&#127838;'},
+  {ar:'امسح الستائر',en:'Dust the blinds',icon:'&#128435;'},
+  {ar:'امسح طاولة الطعام',en:'Wipe the dining table',icon:'&#129471;'},
+  {ar:'رتّب المدخل',en:'Organize the entryway',icon:'&#128682;'},
+  {ar:'نظّف مفاتيح الإضاءة',en:'Clean light switches',icon:'&#128161;'},
+  {ar:'امسح الريموت كنترول',en:'Wipe the remote controls',icon:'&#127918;'},
+  {ar:'رتّب خزانة الأدوية',en:'Organize the medicine cabinet',icon:'&#128138;'}
+];
+
+var lowEnergyTasks = [
+  {ar:'نفّش وسادة',en:'Fluff a pillow',icon:'&#128715;'},
+  {ar:'رتّب مكان جلوسك',en:'Tidy your seat',icon:'&#129471;'},
+  {ar:'اجمع كوباً واحداً',en:'Pick up one cup',icon:'&#9749;'},
+  {ar:'امسح سطحاً واحداً',en:'Wipe 1 surface',icon:'&#10024;'},
+  {ar:'أغلق درجاً مفتوحاً',en:'Close an open drawer',icon:'&#128230;'},
+  {ar:'ضع حذاء في مكانه',en:'Put 1 shoe away',icon:'&#128095;'},
+  {ar:'رمِّ ورقة واحدة',en:'Throw away 1 paper',icon:'&#128196;'},
+  {ar:'قوِّم شيئاً مائلاً',en:'Straighten 1 thing',icon:'&#128444;'},
+  {ar:'عدِّل غطاء السرير',en:'Straighten the cover',icon:'&#128719;'},
+  {ar:'رتّب أشياء قريبة منك',en:'Sort nearby items',icon:'&#128203;'},
+  {ar:'اشطف كوبك',en:'Rinse your cup',icon:'&#129371;'},
+  {ar:'اجمع قلمين',en:'Pick up 2 pens',icon:'&#9999;'},
+  {ar:'امسح الطاولة الصغيرة',en:'Wipe a small table',icon:'&#129529;'},
+  {ar:'أزح كيساً فارغاً',en:'Remove an empty bag',icon:'&#128091;'},
+  {ar:'ضع غرضاً في مكانه',en:'Put 1 item away',icon:'&#128204;'},
+  {ar:'أغلق أي علبة مفتوحة',en:'Close any open box',icon:'&#128236;'},
+  {ar:'رتّب جانباً من السرير',en:'Tidy one bed side',icon:'&#127769;'},
+  {ar:'ضع الوسائد بترتيب',en:'Stack pillows neatly',icon:'&#128164;'},
+  {ar:'أزل حاجة لا تلزمك',en:'Remove 1 clutter item',icon:'&#128465;'},
+  {ar:'اجعل سطحاً واحداً نظيفاً',en:'Clear 1 surface spot',icon:'&#127775;'},
+  {ar:'اطوِ شيئاً واحداً',en:'Fold 1 item',icon:'&#128087;'},
+  {ar:'ضع أحذية الباب بترتيب',en:'Align door shoes',icon:'&#128682;'},
+  {ar:'رتّب ما أمامك الآن',en:'Tidy what\'s in front',icon:'&#128065;'},
+  {ar:'خذ نفساً وابتسم',en:'Breathe and smile',icon:'&#128522;'},
+  {ar:'سوِّي سجادة',en:'Straighten one rug',icon:'&#129371;'},
+  {ar:'أغلق باب خزانة',en:'Close a closet door',icon:'&#128682;'},
+  {ar:'امسح مقبض باب',en:'Wipe a doorknob',icon:'&#128272;'},
+  {ar:'عدّل إطار صورة',en:'Adjust a picture frame',icon:'&#128444;'},
+  {ar:'ضع كتاباً في مكانه',en:'Put one book away',icon:'&#128218;'},
+  {ar:'أدخل كرسي تحت الطاولة',en:'Tuck in a chair',icon:'&#129471;'},
+  {ar:'أزل ملصق واحد',en:'Remove one sticker/label',icon:'&#127991;'},
+  {ar:'ضع لعبة في مكانها',en:'Put one toy away',icon:'&#129490;'},
+  {ar:'امسح شاشة هاتفك',en:'Wipe a phone screen',icon:'&#128241;'},
+  {ar:'ضع فاتورة في مكانها',en:'Put away one receipt',icon:'&#128179;'},
+  {ar:'ارمِ غلاف حلوى',en:'Throw away one wrapper',icon:'&#127852;'},
+  {ar:'ضع شاحناً في مكانه',en:'Put away one charger',icon:'&#128267;'},
+  {ar:'اطوِ منشفة واحدة',en:'Fold one towel',icon:'&#128704;'},
+  {ar:'أفرغ خطافاً واحداً',en:'Clear one hook',icon:'&#128268;'},
+  {ar:'ضع مفتاحاً في مكانه',en:'Put away one key',icon:'&#128273;'},
+  {ar:'رتّب مكاناً في رف',en:'Organize one shelf spot',icon:'&#128230;'},
+  {ar:'ارمِ منتجاً منتهياً',en:'Throw away expired item',icon:'&#128465;'},
+  {ar:'ادفع كرسي للداخل',en:'Push in one chair',icon:'&#129471;'},
+  {ar:'أزل غبار شيء واحد',en:'Remove dust from one item',icon:'&#129424;'},
+  {ar:'سوّي ستارة',en:'Straighten one curtain',icon:'&#128435;'},
+  {ar:'ضع قلماً في حاملته',en:'Put one pen in holder',icon:'&#9999;'},
+  {ar:'أغلق غطاء بشكل صحيح',en:'Close one lid properly',icon:'&#128274;'},
+  {ar:'نظّف بقعة واحدة',en:'Spot-clean one stain',icon:'&#128308;'}
+];
+
+/* ===== Active Grid Tasks (24 selected + FREE at center) ===== */
+var activeHighTasks = null;
+var activeLowTasks = null;
+var currentTasks = [];
+
+/* ===== Default Rewards ===== */
+var defaultRewards = [
+  {ar:'استمع لأغنية مفضلة',en:'Listen to a fav song',icon:'&#127925;',color:'#F3E5F5'},
+  {ar:'استراحة وجبة خفيفة',en:'Snack break',icon:'&#127850;',color:'#FFF9C4'},
+  {ar:'5 دقائق تصفح الهاتف',en:'5 min phone scroll',icon:'&#128241;',color:'#E3F2FD'},
+  {ar:'شاهد حلقة مفضلة',en:'Watch a fav episode',icon:'&#128250;',color:'#FCE4EC'},
+  {ar:'تمشية قصيرة بالخارج',en:'Short walk outside',icon:'&#128694;',color:'#E8F5E9'},
+  {ar:'مشروب دافئ مميز',en:'Enjoy a hot drink',icon:'&#9749;',color:'#FBE9E7'},
+  {ar:'اتصل بصديق',en:'Call a friend',icon:'&#128222;',color:'#E8EAF6'},
+  {ar:'العب بحيوانك الأليف',en:'Play with your pet',icon:'&#128062;',color:'#F1F8E9'},
+  {ar:'استمع لبودكاست',en:'Listen to a podcast',icon:'&#127911;',color:'#EDE7F6'},
+  {ar:'العب لعبة قصيرة',en:'Play a quick game',icon:'&#127918;',color:'#E0F7FA'},
+  {ar:'اقرأ صفحتين',en:'Read 2 pages',icon:'&#128214;',color:'#FFF3E0'},
+  {ar:'استرخِ 5 دقائق',en:'Rest for 5 minutes',icon:'&#128524;',color:'#F3E5F5'}
+];
+
+var rewards = defaultRewards.map(function(r){ return {ar:r.ar, en:r.en, icon:r.icon, color:r.color}; });
+
+/* ===== LocalStorage ===== */
+var STORAGE_KEY = 'adhd_cleaning_hub_state';
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function generateActiveGrid(pool) {
+  var shuffled = shuffleArray(pool);
+  var selected = shuffled.slice(0, 24);
+  selected.splice(12, 0, {ar:'FREE SPACE',en:'FREE SPACE',icon:'&#11088;'});
+  return selected;
+}
+
+/* ===== Web Audio API ===== */
+var audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function playPop() {
+  try {
+    var ctx = getAudioCtx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.12);
+  } catch(e) {}
+}
+
+function playTick() {
+  try {
+    var ctx = getAudioCtx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(1400, ctx.currentTime);
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.04);
+  } catch(e) {}
+}
+
+function playChime() {
+  try {
+    var ctx = getAudioCtx();
+    var notes = [523.25, 659.25, 783.99];
+    for (var n = 0; n < notes.length; n++) {
+      (function(freq, i) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        var t = ctx.currentTime + i * 0.12;
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, t + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.45);
+      })(notes[n], n);
+    }
+  } catch(e) {}
+}
+
+/* ===== LocalStorage Save / Load ===== */
+function saveState() {
+  try {
+    var state = {
+      completedCellsHigh: completedCellsHigh,
+      completedCellsLow: completedCellsLow,
+      foundBingoLinesHigh: foundBingoLinesHigh,
+      foundBingoLinesLow: foundBingoLinesLow,
+      rescueHistory: rescueHistory.map(function(item) {
+        return { task: item.task, time: item.time };
+      }),
+      energyMode: energyMode,
+      currentLang: currentLang,
+      activeHighTasks: activeHighTasks,
+      activeLowTasks: activeLowTasks,
+      rewards: rewards,
+      lastTaskDate: lastTaskDate,
+      currentStreak: currentStreak
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    var state = JSON.parse(raw);
+    if (Array.isArray(state.completedCellsHigh) && state.completedCellsHigh.length === 25) {
+      completedCellsHigh = state.completedCellsHigh;
+    }
+    if (Array.isArray(state.completedCellsLow) && state.completedCellsLow.length === 25) {
+      completedCellsLow = state.completedCellsLow;
+    }
+    if (Array.isArray(state.foundBingoLinesHigh)) {
+      foundBingoLinesHigh = state.foundBingoLinesHigh;
+    }
+    if (Array.isArray(state.foundBingoLinesLow)) {
+      foundBingoLinesLow = state.foundBingoLinesLow;
+    }
+    if (Array.isArray(state.rescueHistory)) {
+      rescueHistory = state.rescueHistory.map(function(item) {
+        return { task: item.task, time: new Date(item.time) };
+      });
+    }
+    if (state.energyMode === 'low' || state.energyMode === 'high') {
+      energyMode = state.energyMode;
+    }
+    if (state.currentLang === 'ar' || state.currentLang === 'en') {
+      currentLang = state.currentLang;
+    }
+    if (Array.isArray(state.activeHighTasks) && state.activeHighTasks.length === 25) {
+      activeHighTasks = state.activeHighTasks;
+    }
+    if (Array.isArray(state.activeLowTasks) && state.activeLowTasks.length === 25) {
+      activeLowTasks = state.activeLowTasks;
+    }
+    if (Array.isArray(state.rewards) && state.rewards.length >= 2) {
+      rewards = state.rewards;
+    }
+    if (state.lastTaskDate) {
+      lastTaskDate = new Date(state.lastTaskDate);
+    }
+    if (typeof state.currentStreak === 'number') {
+      currentStreak = state.currentStreak;
+    }
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+function rebuildRescueHistory() {
+  if (rescueHistory.length === 0) return;
+  document.getElementById('rescueHistoryCard').style.display = 'block';
+  var hist = document.getElementById('rescueHistory');
+  hist.innerHTML = '';
+  for (var i = rescueHistory.length - 1; i >= 0; i--) {
+    var item = rescueHistory[i];
+    var el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:0.6rem;background:var(--mint);border-radius:12px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;';
+    el.innerHTML = '<span>' + item.task.icon + '</span><span style="flex:1;">' + (currentLang === 'ar' ? item.task.ar : item.task.en) + '</span><span style="color:#4CAF50;font-size:1.1rem;">&#10003;</span>';
+    hist.appendChild(el);
+  }
+}
+
+/* ===== Streak Logic ===== */
+function getTodayStr() {
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function getYesterdayStr() {
+  var d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function updateStreak() {
+  var today = getTodayStr();
+  var yesterday = getYesterdayStr();
+  var lastStr = lastTaskDate ? (lastTaskDate.getFullYear() + '-' + String(lastTaskDate.getMonth()+1).padStart(2,'0') + '-' + String(lastTaskDate.getDate()).padStart(2,'0')) : null;
+
+  if (lastStr === today) {
+    /* Already counted today — do nothing */
+  } else if (lastStr === yesterday) {
+    currentStreak++;
+  } else {
+    currentStreak = 1;
+  }
+  lastTaskDate = new Date();
+  renderStreakBadge();
+  saveState();
+}
+
+function renderStreakBadge() {
+  var badge = document.getElementById('streakBadge');
+  var text = document.getElementById('streakText');
+  if (currentStreak > 0) {
+    badge.style.display = 'inline-flex';
+    if (currentLang === 'ar') {
+      text.textContent = currentStreak + ' أيام';
+    } else {
+      var label = currentStreak === 1 ? 'Day' : 'Days';
+      text.textContent = currentStreak + ' ' + label;
+    }
+    /* Pop animation */
+    badge.classList.remove('pop');
+    void badge.offsetWidth;
+    badge.classList.add('pop');
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+/* ===== 15-Minute Focus Mode ===== */
+function startFocusCountdown() {
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+  focusModeActive = true;
+  var total = 900;
+  var remaining = total;
+  var numEl = document.getElementById('countdownNum');
+  var ring = document.getElementById('countdownRing');
+  var circumference = 220;
+
+  function fmt(s) {
+    var m = Math.floor(s / 60);
+    var sec = s % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  numEl.style.fontSize = '1.4rem';
+  numEl.textContent = fmt(remaining);
+  ring.style.transition = 'stroke-dashoffset 1s linear';
+  ring.style.strokeDashoffset = '0';
+
+  document.getElementById('goMessage').style.display = 'none';
+  document.getElementById('doneRescueBtn').style.display = 'none';
+  document.getElementById('focusModeBtn').style.display = 'none';
+  document.getElementById('finishEarlyBtn').style.display = 'inline-flex';
+  document.getElementById('focusTimerText').style.display = 'block';
+
+  var timerLabel = document.querySelector('.task-card > div:nth-child(3)');
+  if (timerLabel && timerLabel.id !== 'focusTimerText') {
+    timerLabel.style.display = 'none';
+  }
+
+  countdownInterval = setInterval(function() {
+    remaining--;
+    numEl.textContent = fmt(remaining);
+    var fraction = remaining / total;
+    ring.style.strokeDashoffset = ((1 - fraction) * circumference) + '';
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      focusModeActive = false;
+      numEl.style.fontSize = '1.8rem';
+      ring.style.strokeDashoffset = circumference + '';
+      var goMsg = document.getElementById('goMessage');
+      goMsg.style.display = 'block';
+      goMsg.textContent = currentLang === 'ar' ? 'أحسنت! انتهى الوقت!' : 'Great job! Time is up!';
+      document.getElementById('doneRescueBtn').style.display = 'inline-flex';
+      document.getElementById('finishEarlyBtn').style.display = 'none';
+      document.getElementById('focusTimerText').style.display = 'none';
+      var timerLabel2 = document.querySelector('.task-card > div:nth-child(3)');
+      if (timerLabel2 && timerLabel2.id !== 'focusTimerText') { timerLabel2.style.display = ''; }
+      playChime();
+    }
+  }, 1000);
+}
+
+function finishFocusEarly() {
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+  focusModeActive = false;
+  var numEl = document.getElementById('countdownNum');
+  numEl.style.fontSize = '1.8rem';
+  numEl.textContent = '0';
+  document.getElementById('countdownRing').style.strokeDashoffset = '220';
+  var goMsg = document.getElementById('goMessage');
+  goMsg.style.display = 'block';
+  goMsg.textContent = currentLang === 'ar' ? 'أنجزت مبكراً! رائع!' : 'Finished early! Amazing!';
+  document.getElementById('doneRescueBtn').style.display = 'inline-flex';
+  document.getElementById('finishEarlyBtn').style.display = 'none';
+  document.getElementById('focusTimerText').style.display = 'none';
+  var timerLabel = document.querySelector('.task-card > div:nth-child(3)');
+  if (timerLabel && timerLabel.id !== 'focusTimerText') { timerLabel.style.display = ''; }
+  playChime();
+}
+
+/* ===== Mystery Mission Cards ===== */
+function renderRescueCards() {
+  shuffledMissionIndices = shuffleArray([0,1,2,3,4,5,6,7]);
+  currentRescueTask = null;
+  isCardFlipped = false;
+  var grid = document.getElementById('mysteryCardsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (var i = 0; i < 8; i++) {
+    (function(idx) {
+      var card = document.createElement('div');
+      card.className = 'mystery-card';
+      card.setAttribute('data-card-index', idx);
+
+      var inner = document.createElement('div');
+      inner.className = 'mystery-card-inner';
+
+      var front = document.createElement('div');
+      front.className = 'mystery-card-front';
+      var qMark = document.createElement('span');
+      qMark.className = 'card-question-mark';
+      qMark.textContent = '?';
+      var label = document.createElement('span');
+      label.className = 'card-back-label';
+      label.setAttribute('data-ar', 'مهمة سرية');
+      label.setAttribute('data-en', 'Mystery');
+      label.textContent = currentLang === 'ar' ? 'مهمة سرية' : 'Mystery';
+      front.appendChild(qMark);
+      front.appendChild(label);
+
+      var back = document.createElement('div');
+      back.className = 'mystery-card-back';
+      var mission = rescueMissions[shuffledMissionIndices[idx]];
+      var iconEl = document.createElement('div');
+      iconEl.className = 'mission-icon';
+      iconEl.innerHTML = mission.icon;
+      var textEl = document.createElement('div');
+      textEl.className = 'mission-text';
+      textEl.setAttribute('data-ar', mission.ar);
+      textEl.setAttribute('data-en', mission.en);
+      textEl.textContent = currentLang === 'ar' ? mission.ar : mission.en;
+      back.appendChild(iconEl);
+      back.appendChild(textEl);
+      if (mission.anchor_ar && mission.anchor_en) {
+        var anchorEl = document.createElement('div');
+        anchorEl.className = 'mission-anchor';
+        anchorEl.setAttribute('data-ar', mission.anchor_ar);
+        anchorEl.setAttribute('data-en', mission.anchor_en);
+        anchorEl.textContent = currentLang === 'ar' ? mission.anchor_ar : mission.anchor_en;
+        back.appendChild(anchorEl);
+      }
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      card.appendChild(inner);
+
+      card.addEventListener('click', function() { flipCard(idx); });
+      grid.appendChild(card);
+    })(i);
+  }
+}
+
+function flipCard(index) {
+  if (isCardFlipped) return;
+  isCardFlipped = true;
+  playPop();
+
+  var cards = document.querySelectorAll('.mystery-card');
+  for (var i = 0; i < cards.length; i++) {
+    if (i !== index) {
+      cards[i].classList.add('disabled');
+    }
+  }
+  cards[index].classList.add('flipped');
+
+  currentRescueTask = rescueMissions[shuffledMissionIndices[index]];
+
+  document.getElementById('taskEmoji').innerHTML = currentRescueTask.icon;
+  document.getElementById('taskName').textContent = currentLang === 'ar' ? currentRescueTask.ar : currentRescueTask.en;
+
+  var taskCard = document.getElementById('taskCard');
+  taskCard.classList.remove('visible');
+  void taskCard.offsetWidth;
+  taskCard.classList.add('visible');
+  document.getElementById('goMessage').style.display = 'none';
+  document.getElementById('doneRescueBtn').style.display = 'none';
+
+  startCountdown(5);
+
+  setTimeout(function() {
+    cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 400);
+}
+
+/* ===== Language & Energy ===== */
+function t(el) {
+  var ar = el.getAttribute('data-ar');
+  var en = el.getAttribute('data-en');
+  if (ar && en) el.textContent = currentLang === 'ar' ? ar : en;
+}
+
+function applyLang() {
+  document.querySelectorAll('[data-ar][data-en]').forEach(t);
+  document.documentElement.lang = currentLang;
+  if (currentLang === 'en') {
+    document.body.classList.add('lang-en');
+    document.body.classList.remove('lang-ar');
+    document.documentElement.dir = 'ltr';
+    document.getElementById('langLabel').textContent = 'AR';
+  } else {
+    document.body.classList.add('lang-ar');
+    document.body.classList.remove('lang-en');
+    document.documentElement.dir = 'rtl';
+    document.getElementById('langLabel').textContent = 'EN';
+  }
+  renderBingo();
+  drawWheel();
+  buildRewardLegend();
+  renderStreakBadge();
+  /* Update reward editor placeholder */
+  var nameInput = document.getElementById('newRewardName');
+  if (nameInput) {
+    nameInput.placeholder = currentLang === 'ar' ? 'اسم المكافأة...' : 'Reward name...';
+  }
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  applyLang();
+  saveState();
+}
+
+function toggleEnergy() {
+  var oldMode = energyMode;
+  energyMode = energyMode === 'high' ? 'low' : 'high';
+  var btn = document.getElementById('energyToggle');
+  if (energyMode === 'low') {
+    btn.classList.remove('high');
+    btn.classList.add('low');
+    btn.querySelector('i').className = 'fa-solid fa-feather';
+  } else {
+    btn.classList.remove('low');
+    btn.classList.add('high');
+    btn.querySelector('i').className = 'fa-solid fa-bolt';
+  }
+  var arSpan = btn.querySelector('span');
+  arSpan.setAttribute('data-ar', energyMode === 'high' ? 'طاقة عالية' : 'طاقة منخفضة');
+  arSpan.setAttribute('data-en', energyMode === 'high' ? 'High Energy' : 'Low Energy');
+  t(arSpan);
+
+  /* Switch active task set and progress tracking */
+  if (energyMode === 'low') {
+    currentTasks = activeLowTasks;
+    completedCells = completedCellsLow;
+    foundBingoLines = foundBingoLinesLow;
+  } else {
+    currentTasks = activeHighTasks;
+    completedCells = completedCellsHigh;
+    foundBingoLines = foundBingoLinesHigh;
+  }
+  renderBingo();
+  updateProgress();
+  saveState();
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('[data-tab="' + name + '"]').classList.add('active');
+  if (name === 'wheel') { setTimeout(drawWheel, 50); }
+}
+
+/* ===== Bingo Grid ===== */
+function renderBingo() {
+  var grid = document.getElementById('bingoGrid');
+  grid.innerHTML = '';
+  if (!currentTasks || currentTasks.length === 0) return;
+  currentTasks.forEach(function(task, i) {
+    var cell = document.createElement('div');
+    cell.className = 'bingo-cell';
+    if (i === 12) { cell.classList.add('free-space'); }
+    if (completedCells[i]) { cell.classList.add('done'); }
+    cell.setAttribute('data-index', i);
+    if (foundBingoLines.some(function(line){ return line.indexOf(i) !== -1; })) {
+      cell.classList.add('bingo-line');
+    }
+    var iconDiv = document.createElement('div');
+    iconDiv.className = 'cell-icon';
+    iconDiv.innerHTML = task.icon;
+    var textDiv = document.createElement('div');
+    textDiv.className = 'cell-text';
+    textDiv.textContent = currentLang === 'ar' ? task.ar : task.en;
+    cell.appendChild(iconDiv);
+    cell.appendChild(textDiv);
+    if (i !== 12) {
+      cell.addEventListener('click', function(){ toggleCell(i); });
+    }
+    grid.appendChild(cell);
+  });
+}
+
+function toggleCell(index) {
+  if (index === 12) return;
+  completedCells[index] = !completedCells[index];
+  if (completedCells[index]) {
+    playPop();
+    spawnParticles(event);
+    updateStreak();
+  }
+  renderBingo();
+  updateProgress();
+  if (completedCells[index]) {
+    checkBingo();
+  }
+  saveState();
+}
+
+function updateProgress() {
+  var done = completedCells.filter(function(v, i){ return v && i !== 12; }).length;
+  var total = 24;
+  var pct = Math.round((done / total) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statPercent').textContent = pct + '%';
+  document.getElementById('statLines').textContent = foundBingoLines.length;
+}
+
+var BINGO_LINES = [
+  [0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],
+  [0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
+  [0,6,12,18,24],[4,8,12,16,20]
+];
+
+function checkBingo() {
+  var cellsCheck = completedCells.slice();
+  cellsCheck[12] = true;
+  var newBingo = false;
+  BINGO_LINES.forEach(function(line) {
+    var lineKey = line.join(',');
+    var alreadyFound = foundBingoLines.some(function(fl){ return fl.join(',') === lineKey; });
+    if (!alreadyFound && line.every(function(i){ return cellsCheck[i]; })) {
+      foundBingoLines.push(line);
+      newBingo = true;
+    }
+  });
+  if (newBingo) {
+    updateProgress();
+    renderBingo();
+    setTimeout(function() { showBingoModal(); }, 400);
+  }
+}
+
+function showBingoModal() {
+  var msgs = {
+    ar: ['احتفل بهذا الإنجاز الرائع!','عقلك المدهش فعل ذلك!','خطوة بخطوة تصنع الفرق!','أنت نجم حقيقي!','الانجاز يبدأ بخطوة!'],
+    en: ['Celebrate this amazing win!','Your incredible mind did it!','Step by step makes the difference!','You\'re a real star!','Achievement starts with one step!']
+  };
+  var list = msgs[currentLang];
+  var msg = list[Math.floor(Math.random() * list.length)];
+  document.getElementById('bingoRewardMsg').textContent = msg;
+  var modal = document.getElementById('bingoModal');
+  modal.querySelector('.modal-title').textContent = currentLang === 'ar' ? 'بينغو! انتصار!' : 'BINGO! Victory!';
+  modal.querySelector('.modal-subtitle').textContent = currentLang === 'ar' ? 'رائع! أكملت خطاً كاملاً! أنت بطل حقيقي' : 'Amazing! You completed a full line! You\'re a true champion';
+  modal.querySelector('.modal-close').textContent = currentLang === 'ar' ? 'شكراً! استمر' : 'Thanks! Keep going';
+  modal.style.display = 'flex';
+  playChime();
+  spawnMegaParticles();
+}
+
+function closeBingoModal() {
+  document.getElementById('bingoModal').style.display = 'none';
+}
+
+function resetBingo() {
+  var msg = currentLang === 'ar'
+    ? 'هل أنت متأكد؟ ستبدأ بشبكة جديدة وتفقد تقدمك الحالي.'
+    : 'Are you sure? You will generate a new grid and lose your current progress.';
+  if (!confirm('\u26A0\uFE0F ' + msg)) return;
+
+  /* Reset only the current energy mode's progress */
+  if (energyMode === 'high') {
+    completedCellsHigh = new Array(25).fill(false);
+    completedCellsHigh[12] = true;
+    foundBingoLinesHigh = [];
+    completedCells = completedCellsHigh;
+    foundBingoLines = foundBingoLinesHigh;
+  } else {
+    completedCellsLow = new Array(25).fill(false);
+    completedCellsLow[12] = true;
+    foundBingoLinesLow = [];
+    completedCells = completedCellsLow;
+    foundBingoLines = foundBingoLinesLow;
+  }
+
+  /* Generate new random 24 tasks for current energy mode */
+  var pool = energyMode === 'high' ? highEnergyTasks : lowEnergyTasks;
+  var newGrid = generateActiveGrid(pool);
+  if (energyMode === 'high') {
+    activeHighTasks = newGrid;
+  } else {
+    activeLowTasks = newGrid;
+  }
+  currentTasks = newGrid;
+
+  renderBingo();
+  updateProgress();
+  saveState();
+}
+
+/* ===== Particles ===== */
+function spawnParticles(e) {
+  var container = document.getElementById('particleContainer');
+  var x = e && e.clientX ? e.clientX : window.innerWidth / 2;
+  var y = e && e.clientY ? e.clientY : window.innerHeight / 2;
+  var emojis = ['&#11088;','&#10024;','&#127775;','&#128171;','&#127881;','&#127882;','&#128165;','&#127752;'];
+  for (var i = 0; i < 12; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var ang = (idx / 12) * Math.PI * 2;
+        var dist = 40 + Math.random() * 60;
+        var px = x + Math.cos(ang) * dist;
+        var py = y + Math.sin(ang) * dist;
+        p.style.left = px + 'px';
+        p.style.top = py + 'px';
+        p.innerHTML = emojis[idx % emojis.length];
+        p.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+        container.appendChild(p);
+        setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); }, 1500);
+      }, idx * 40);
+    })(i);
+  }
+}
+
+function spawnMegaParticles() {
+  var container = document.getElementById('particleContainer');
+  var emojis = ['&#11088;','&#10024;','&#127775;','&#128171;','&#127881;','&#127882;','&#127942;','&#128081;','&#127752;','&#128170;'];
+  for (var i = 0; i < 30; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = (10 + Math.random() * 80) + '%';
+        p.style.top = (-5 + Math.random() * 20) + '%';
+        p.innerHTML = emojis[idx % emojis.length];
+        p.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+        p.style.animationDuration = (1.2 + Math.random() * 1.2) + 's';
+        p.style.animationDelay = (Math.random() * 0.4) + 's';
+        container.appendChild(p);
+        setTimeout(function(){ if(p.parentNode) p.parentNode.removeChild(p); }, 2500);
+      }, idx * 60);
+    })(i);
+  }
+}
+
+/* ===== Reward Wheel ===== */
+var wheelColors = ['#F8BBD0','#E1BEE7','#BBDEFB','#C8E6C9','#FFF9C4','#FFE0B2','#B2DFDB','#F0F4C3','#FFCCBC','#D1C4E9','#B3E5FC','#C5CAE9'];
+var wheelAngle = 0;
+var wheelAnimFrame = null;
+
+function drawWheel() {
+  var canvas = document.getElementById('wheelCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width, h = canvas.height;
+  var cx = w / 2, cy = h / 2;
+  var r = Math.min(cx, cy) - 8;
+  var n = rewards.length;
+  if (n === 0) return;
+  var sliceAngle = (Math.PI * 2) / n;
+  ctx.clearRect(0, 0, w, h);
+  rewards.forEach(function(reward, i) {
+    var start = wheelAngle + i * sliceAngle;
+    var end = start + sliceAngle;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, end);
+    ctx.closePath();
+    var bg = (reward.color && reward.color.length > 0) ? reward.color : wheelColors[i % wheelColors.length];
+    ctx.fillStyle = bg;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + sliceAngle / 2);
+    ctx.textAlign = 'right';
+    ctx.font = 'bold 11px Cairo, Poppins, sans-serif';
+    ctx.fillStyle = '#2D2D2D';
+    ctx.shadowColor = 'rgba(255,255,255,0.8)';
+    ctx.shadowBlur = 2;
+    var label = currentLang === 'ar' ? reward.ar : reward.en;
+    if (label.length > 14) label = label.substring(0, 13) + '\u2026';
+    ctx.fillText(label, r - 10, 4);
+    ctx.font = '16px sans-serif';
+    ctx.fillText(reward.icon, r - 10 - (ctx.measureText(label).width + 4), 5);
+    ctx.restore();
+  });
+  ctx.beginPath();
+  ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  ctx.strokeStyle = '#2D2D2D';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+function spinWheel() {
+  if (isSpinning) return;
+  isSpinning = true;
+  var btn = document.getElementById('spinBtn');
+  btn.disabled = true;
+  document.getElementById('spinIcon').className = 'fa-solid fa-circle-notch fa-spin';
+  var spins = 5 + Math.floor(Math.random() * 5);
+  var extraAngle = Math.random() * Math.PI * 2;
+  var totalAngle = spins * Math.PI * 2 + extraAngle;
+  var duration = 3500 + Math.random() * 1000;
+  var start = null;
+  var startAngle = wheelAngle;
+  function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+  wheelTickInterval = setInterval(playTick, 120);
+  function animate(ts) {
+    if (!start) start = ts;
+    var elapsed = ts - start;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = easeOut(progress);
+    wheelAngle = startAngle + totalAngle * eased;
+    drawWheel();
+    if (progress < 1) {
+      wheelAnimFrame = requestAnimationFrame(animate);
+    } else {
+      clearInterval(wheelTickInterval);
+      wheelTickInterval = null;
+      playChime();
+      wheelAngle = startAngle + totalAngle;
+      drawWheel();
+      isSpinning = false;
+      btn.disabled = false;
+      document.getElementById('spinIcon').className = 'fa-solid fa-circle-notch';
+      var finalAngle = ((wheelAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      var n = rewards.length;
+      var sliceAngle = (Math.PI * 2) / n;
+      var pointerAngle = (Math.PI * 2 - finalAngle + Math.PI * 2) % (Math.PI * 2);
+      var idx = Math.floor(pointerAngle / sliceAngle) % n;
+      idx = (n - idx) % n;
+      showWheelModal(rewards[idx]);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function showWheelModal(reward) {
+  var rewardText = reward.icon + ' ' + (currentLang === 'ar' ? reward.ar : reward.en);
+  document.getElementById('wheelRewardText').textContent = rewardText;
+  var modal = document.getElementById('wheelModal');
+  modal.querySelector('.modal-title').textContent = currentLang === 'ar' ? 'انتصار! مكافأتك هي...' : 'Victory! Your reward is...';
+  modal.querySelector('.modal-subtitle').textContent = currentLang === 'ar' ? 'استحققتها تماماً! استمتع بكل لحظة' : 'You absolutely earned it! Enjoy every moment';
+  modal.querySelector('.modal-close').textContent = currentLang === 'ar' ? 'رائع! شكراً' : 'Awesome! Thanks';
+  modal.style.display = 'flex';
+  playChime();
+  spawnMegaParticles();
+}
+
+function closeWheelModal() {
+  document.getElementById('wheelModal').style.display = 'none';
+}
+
+function buildRewardLegend() {
+  var legend = document.getElementById('rewardLegend');
+  if (!legend) return;
+  legend.innerHTML = '';
+  rewards.forEach(function(r, i) {
+    var item = document.createElement('div');
+    var bg = (r.color && r.color.length > 0) ? r.color : wheelColors[i % wheelColors.length];
+    item.style.cssText = 'display:flex;align-items:center;gap:0.4rem;background:' + bg + ';border-radius:10px;padding:0.4rem 0.6rem;font-size:0.75rem;font-weight:600;color:#2D2D2D;';
+    item.innerHTML = '<span>' + r.icon + '</span><span>' + (currentLang === 'ar' ? r.ar : r.en) + '</span>';
+    legend.appendChild(item);
+  });
+}
+
+/* ===== Reward Editor ===== */
+function openRewardEditor() {
+  document.getElementById('rewardEditModal').style.display = 'flex';
+  document.getElementById('newRewardName').placeholder = currentLang === 'ar' ? 'اسم المكافأة...' : 'Reward name...';
+  renderRewardEditList();
+}
+
+function closeRewardEditor() {
+  document.getElementById('rewardEditModal').style.display = 'none';
+  drawWheel();
+  buildRewardLegend();
+  saveState();
+}
+
+function renderRewardEditList() {
+  var list = document.getElementById('rewardEditList');
+  list.innerHTML = '';
+  rewards.forEach(function(r, i) {
+    var item = document.createElement('div');
+    item.className = 'reward-item';
+    item.innerHTML = '<span class="ri-icon">' + r.icon + '</span>'
+      + '<span class="ri-text">' + (currentLang === 'ar' ? r.ar : r.en) + '</span>'
+      + '<button class="ri-delete" data-idx="' + i + '" title="' + (currentLang === 'ar' ? 'حذف' : 'Delete') + '"><i class="fa-solid fa-trash-can"></i></button>';
+    item.querySelector('.ri-delete').addEventListener('click', function() {
+      deleteReward(parseInt(this.getAttribute('data-idx')));
+    });
+    list.appendChild(item);
+  });
+}
+
+function deleteReward(idx) {
+  if (rewards.length <= 2) {
+    var minMsg = currentLang === 'ar' ? 'يجب أن تبقى مكافأتان على الأقل!' : 'You need at least 2 rewards!';
+    alert(minMsg);
+    return;
+  }
+  rewards.splice(idx, 1);
+  renderRewardEditList();
+}
+
+function addReward() {
+  var iconInput = document.getElementById('newRewardIcon');
+  var nameInput = document.getElementById('newRewardName');
+  var icon = iconInput.value.trim();
+  var name = nameInput.value.trim();
+  if (!icon || !name) return;
+  if (rewards.length >= 20) {
+    var maxMsg = currentLang === 'ar' ? 'الحد الأقصى 20 مكافأة!' : 'Maximum 20 rewards!';
+    alert(maxMsg);
+    return;
+  }
+  rewards.push({
+    ar: name,
+    en: name,
+    icon: icon,
+    color: wheelColors[rewards.length % wheelColors.length]
+  });
+  iconInput.value = '';
+  nameInput.value = '';
+  renderRewardEditList();
+  playPop();
+}
+
+/* ===== Rescue Countdown & Done ===== */
+function startCountdown(seconds) {
+  var remaining = seconds;
+  var total = seconds;
+  var numEl = document.getElementById('countdownNum');
+  var ring = document.getElementById('countdownRing');
+  var circumference = 220;
+  numEl.style.fontSize = '1.8rem';
+  numEl.textContent = remaining;
+  ring.style.transition = 'stroke-dashoffset 1s linear';
+  ring.style.strokeDashoffset = '0';
+  if (countdownInterval) clearInterval(countdownInterval);
+  countdownInterval = setInterval(function() {
+    remaining--;
+    numEl.textContent = remaining;
+    var fraction = remaining / total;
+    ring.style.strokeDashoffset = ((1 - fraction) * circumference) + '';
+    if (remaining <= 0) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      numEl.textContent = '0';
+      ring.style.strokeDashoffset = circumference + '';
+      var goMsg = document.getElementById('goMessage');
+      goMsg.style.display = 'block';
+      goMsg.textContent = currentLang === 'ar' ? 'انطلق الآن!' : 'GO NOW!';
+      document.getElementById('doneRescueBtn').style.display = 'inline-flex';
+      document.getElementById('focusModeBtn').style.display = 'inline-flex';
+      document.getElementById('finishEarlyBtn').style.display = 'none';
+      document.getElementById('focusTimerText').style.display = 'none';
+      var timerLabel = document.querySelector('.task-card > div:nth-child(3)');
+      if (timerLabel && timerLabel.id !== 'focusTimerText') { timerLabel.style.display = ''; }
+    }
+  }, 1000);
+}
+
+function markRescueTaskDone() {
+  if (currentRescueTask) {
+    if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+    focusModeActive = false;
+    rescueHistory.push({task: currentRescueTask, time: new Date()});
+    updateStreak();
+    var histCard = document.getElementById('rescueHistoryCard');
+    histCard.style.display = 'block';
+    var hist = document.getElementById('rescueHistory');
+    var item = document.createElement('div');
+    item.style.cssText = 'display:flex;align-items:center;gap:0.6rem;background:var(--mint);border-radius:12px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;';
+    item.innerHTML = '<span>' + currentRescueTask.icon + '</span><span style="flex:1;">' + (currentLang === 'ar' ? currentRescueTask.ar : currentRescueTask.en) + '</span><span style="color:#4CAF50;font-size:1.1rem;">&#10003;</span>';
+    hist.insertBefore(item, hist.firstChild);
+    spawnMegaParticles();
+    document.getElementById('taskCard').classList.remove('visible');
+    document.getElementById('countdownNum').style.fontSize = '1.8rem';
+    document.getElementById('finishEarlyBtn').style.display = 'none';
+    document.getElementById('focusModeBtn').style.display = 'none';
+    document.getElementById('focusTimerText').style.display = 'none';
+    currentRescueTask = null;
+    renderRescueCards();
+    saveState();
+  }
+}
+
+/* ===== Init ===== */
+function init() {
+  loadState();
+
+  /* Ensure active grids exist — generate if first visit or migration */
+  if (!activeHighTasks || activeHighTasks.length !== 25) {
+    activeHighTasks = generateActiveGrid(highEnergyTasks);
+  }
+  if (!activeLowTasks || activeLowTasks.length !== 25) {
+    activeLowTasks = generateActiveGrid(lowEnergyTasks);
+  }
+
+  /* Ensure FREE SPACE is always marked as done in both modes */
+  completedCellsHigh[12] = true;
+  completedCellsLow[12] = true;
+
+  /* Point completedCells/foundBingoLines to current mode */
+  if (energyMode === 'low') {
+    completedCells = completedCellsLow;
+    foundBingoLines = foundBingoLinesLow;
+  } else {
+    completedCells = completedCellsHigh;
+    foundBingoLines = foundBingoLinesHigh;
+  }
+
+  /* Sync energy mode UI */
+  var btn = document.getElementById('energyToggle');
+  if (energyMode === 'low') {
+    btn.classList.remove('high');
+    btn.classList.add('low');
+    btn.querySelector('i').className = 'fa-solid fa-feather';
+    currentTasks = activeLowTasks;
+  } else {
+    btn.classList.remove('low');
+    btn.classList.add('high');
+    btn.querySelector('i').className = 'fa-solid fa-bolt';
+    currentTasks = activeHighTasks;
+  }
+  var eSpan = btn.querySelector('span');
+  eSpan.setAttribute('data-ar', energyMode === 'high' ? 'طاقة عالية' : 'طاقة منخفضة');
+  eSpan.setAttribute('data-en', energyMode === 'high' ? 'High Energy' : 'Low Energy');
+
+  applyLang();
+  renderRescueCards();
+  updateProgress();
+  rebuildRescueHistory();
+  renderStreakBadge();
+}
+
+window.addEventListener('resize', function() {
+  if (document.getElementById('tab-wheel').classList.contains('active')) {
+    drawWheel();
+  }
+});
+
+init();
+</script>
+</body>
+</html>
