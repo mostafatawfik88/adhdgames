@@ -2127,7 +2127,18 @@ function markRescueTaskDone() {
 function init() {
   loadState();
 
-  /* Ensure active grids exist — generate if first visit or migration */
+  // 1. قراءة المعاملات من الرابط (التبويب، الطاقة، واللغة)
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetTab = urlParams.get('tab');       
+  const targetEnergy = urlParams.get('energy');   
+  const targetLang = urlParams.get('lang');       // سطر جديد: جلب اللغة المطلوبة
+
+  // 2. تفعيل اللغة برمجياً إذا جاءت عبر الرابط (ar أو en)
+  if (targetLang === 'en' || targetLang === 'ar') {
+    currentLang = targetLang; // يرجى التأكد أن اسم المتغير العالمي للغة في ملفك هو currentLang
+  }
+
+  /* تفقد وإنشاء شبكة المهام */
   if (!activeHighTasks || activeHighTasks.length !== 25) {
     activeHighTasks = generateActiveGrid(highEnergyTasks);
   }
@@ -2135,43 +2146,52 @@ function init() {
     activeLowTasks = generateActiveGrid(lowEnergyTasks);
   }
 
-  /* Ensure FREE SPACE is always marked as done in both modes */
+  /* ضمان تفعيل المربع المجاني في المنتصف تلقائياً */
   completedCellsHigh[12] = true;
   completedCellsLow[12] = true;
 
-  /* Point completedCells/foundBingoLines to current mode */
+  // 3. تفعيل وضع الطاقة قسرياً إذا جاء عبر الرابط (high أو low)
+  if (targetEnergy === 'low' || targetEnergy === 'high') {
+    energyMode = targetEnergy;
+  }
+
+  /* توجيه مصفوفة المهام حسب وضع الطاقة الفعلي */
   if (energyMode === 'low') {
     completedCells = completedCellsLow;
     foundBingoLines = foundBingoLinesLow;
+    currentTasks = activeLowTasks;
   } else {
     completedCells = completedCellsHigh;
     foundBingoLines = foundBingoLinesHigh;
+    currentTasks = activeHighTasks;
   }
 
-  /* Sync energy mode UI */
+  /* مزامنة واجهة مستخدم زر الطاقة */
   var btn = document.getElementById('energyToggle');
   if (energyMode === 'low') {
     btn.classList.remove('high');
     btn.classList.add('low');
     btn.querySelector('i').className = 'fa-solid fa-feather';
-    currentTasks = activeLowTasks;
   } else {
     btn.classList.remove('low');
     btn.classList.add('high');
     btn.querySelector('i').className = 'fa-solid fa-bolt';
-    currentTasks = activeHighTasks;
   }
   var eSpan = btn.querySelector('span');
   eSpan.setAttribute('data-ar', energyMode === 'high' ? 'طاقة عالية' : 'طاقة منخفضة');
   eSpan.setAttribute('data-en', energyMode === 'high' ? 'High Energy' : 'Low Energy');
 
-  applyLang();
+  applyLang(); // تطبيق اللغة والترجمة تلقائياً
   renderRescueCards();
   updateProgress();
   rebuildRescueHistory();
   renderStreakBadge();
-}
 
+  // 4. الانتقال برمجياً للتبويب الممرر عبر الرابط فوراً
+  if (targetTab && ['bingo', 'wheel', 'rescue'].includes(targetTab)) {
+    switchTab(targetTab); 
+  }
+}
 window.addEventListener('resize', function() {
   if (document.getElementById('tab-wheel').classList.contains('active')) {
     drawWheel();
